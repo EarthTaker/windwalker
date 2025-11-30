@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--Adds the Thymeleaf namespace. -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Flight Results</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Flight Results</h1>
+    <div>
+        <!--th:text - Allows Thymeleaf to pull values from Spring's model when it renders the view-->
+        <p>From: <span th:text="${from}">placeholder from</span></p>
+        <p>To: <span th:text="${to}">placeholder to</span></p>
+
+        <p>Trip Type: <span th:text="${tripType}">placeholder trip type</span></p>
+
+        <!--Display the return date if the trip type is Round-Trip-->
+        <p th:if="${tripType == 'Round-Trip'}">
+            Return Date: <span th:text="${returnDate}">placeholder return date</span>
+        </p>
+
+        <p>Departure Date: <span th:text="${departureDate}">placeholder date</span></p>
+        <p>Number of Passengers: <span th:text="${passengers}">placeholder passengers</span></p>
+        <p>Seat Class: <span th:text="${seatClass}">placeholder seat class</span></p>
+    </div>
+
+    <!-- Optional Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
