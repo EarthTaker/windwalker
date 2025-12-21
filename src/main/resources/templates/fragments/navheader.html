@@ -1,0 +1,21 @@
+<!-- fragments/navheader.html -->
+<header th:fragment="navheader">
+    <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Windwalker</a>
+
+            <!--Creates button; targets navbarNav identifier for collapse with Bootstrap JS-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li th:if="${page != 'login'}" class="nav-item">
+                        <a class="nav-link" href="/user/login">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
