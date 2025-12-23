@@ -22,9 +22,16 @@ public class FlightSearchService {
     }
 
     /**
-     * Method to search for flights based on the search request.
+     * Searches for flights matching the criteria specified in the search request.
      * 
-     * @param searchRequest
+     * This method acts as a facade, taking a complex request object, extracting
+     * the necessary parameters (From/To cities), and delegating the actual
+     * query execution to the Repository layer.
+     * 
+     * @param searchRequest The DTO containing user search criteria (Origin,
+     *                      Destination, Dates, etc.)
+     * @return A List of FlightOption objects that match the route. Returns empty
+     *         list if no matches found.
      */
     public List<FlightOption> searchFlights(FlightSearchRequest searchRequest) {
 

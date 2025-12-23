@@ -6,3 +6,8 @@ To run the application:
    .\gradlew bootRun
 
 4. Open http://localhost:8080/
+
+Test Flight - 
+
+From: New York 
+To: Los Angeles

@@ -1,6 +1,8 @@
 package edu.snhu.garrison.windwalker.Controllers;
 
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,18 +15,24 @@ import edu.snhu.garrison.windwalker.Services.FlightSearchService;
 @RequestMapping("/api/flights")
 public class FlightAPIController {
 
+    // Automatically injects the UserAuthenticationService bean into the controller
+    @Autowired
     private FlightSearchService flightSearchService;
 
-    public FlightAPIController(FlightSearchService flightSearchService) {
-        this.flightSearchService = flightSearchService;
-    }
-
     /**
-     * API Endpoint to handle client requests for each flight search.
-     * Mapping - /search
+     * API Endpoint to handle client requests for flight searches.
      * 
-     * @return A list of FlightOptions pulled from the repository.
+     * RESTful Practice: uses @GetMapping for read-only operations.
+     * URL: /api/flights/search
      * 
+     * @param from          Origin city name
+     * @param to            Destination city name
+     * @param departureDate Date of departure
+     * @param returnDate    Optional return date
+     * @param passengers    Number of passengers
+     * @param tripType      OneWay or RoundTrip
+     * @param seatClass     Economy, Business, or First
+     * @return A list of FlightOptions suitable for JSON serialization.
      */
     @GetMapping("/search")
     public List<FlightOption> searchFlights(
@@ -33,10 +41,12 @@ public class FlightAPIController {
             @RequestParam() int passengers, @RequestParam() String tripType,
             @RequestParam() String seatClass) {
 
-        // Generate a DTO
+        // Generate a DTO to encapsulate parameters
         FlightSearchRequest req = new FlightSearchRequest(to, from, departureDate, returnDate, tripType, passengers,
                 seatClass);
 
+        // Call to the service method, pass the request, return the expected list of
+        // flights.
         List<FlightOption> results = flightSearchService.searchFlights(req);
 
         return results;
@@ -44,9 +54,9 @@ public class FlightAPIController {
 
     /**
      * API Endpoint to allow a logged in user to book a flight.
-     * Mapping - /book
      * 
-     * @return
+     * @apiNote Verification of Booking implementation is deferred to future
+     *          milestones.
      * 
      */
     @GetMapping("/book")
@@ -56,6 +66,7 @@ public class FlightAPIController {
             @RequestParam() int passengers, @RequestParam() String tripType,
             @RequestParam() String seatClass) {
 
+        // TODO: Implement Booking Service logic in Milestone 3
         FlightSearchRequest req = new FlightSearchRequest(to, from, departureDate, returnDate, tripType, passengers,
                 seatClass);
 
