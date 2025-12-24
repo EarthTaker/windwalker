@@ -16,6 +16,7 @@ import edu.snhu.garrison.windwalker.Services.FlightSearchService;
 public class FlightAPIController {
 
     // Automatically injects the UserAuthenticationService bean into the controller
+    // at runtime.
     @Autowired
     private FlightSearchService flightSearchService;
 
@@ -32,7 +33,7 @@ public class FlightAPIController {
      * @param passengers    Number of passengers
      * @param tripType      OneWay or RoundTrip
      * @param seatClass     Economy, Business, or First
-     * @return A list of FlightOptions suitable for JSON serialization.
+     * @return A list of FlightOptions.
      */
     @GetMapping("/search")
     public List<FlightOption> searchFlights(
