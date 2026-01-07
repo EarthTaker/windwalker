@@ -2,7 +2,10 @@
 <header th:fragment="navheader">
     <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">Windwalker</a>
+            <!--IF the user is logged in, change navigation to /dashboard.-->
+            <a class="navbar-brand" th:href="${session.authenticatedUser != null} ? '/dashboard' : '/'">
+                Windwalker
+            </a>
 
             <!--Creates button; targets navbarNav identifier for collapse with Bootstrap JS-->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -11,20 +14,22 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li th:if="${page != 'login' and user == null}" class="nav-item">
-                        <a class="nav-link" href="/user/login">Login</a>
+                    <li th:if="${page != 'login' and session.authenticatedUser == null}" class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
                     </li>
-                    <li th:if="${page != 'register' and user == null}" class="nav-item">
-                        <a class="nav-link" href="/user/register">Register</a>
+                    <li th:if="${page != 'register' and session.authenticatedUser == null}" class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
                     </li>
-                    <li th:if="${page != 'home'}" class="nav-item">
-                        <a class="nav-link" href="/user/home">Home</a>
+                    <li class="nav-item" th:if="${page != 'dashboard' and page != 'home'}">
+                        <a class="nav-link" th:href="${session.authenticatedUser != null} ? '/dashboard' : '/'">Home</a>
                     </li>
-                    <li th:if="${page != 'logout' and user != null}" class="nav-item">
-                        <a class="nav-link" href="/user/logout">Logout</a>
+                    <li th:if="${page != 'logout' and session.authenticatedUser != null}" class="nav-item">
+                        <a class="nav-link" href="#" id="logoutLink">Logout</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+
+    <script th:if="${session.authenticatedUser != null}" src="/logout.js"></script>
 </header>

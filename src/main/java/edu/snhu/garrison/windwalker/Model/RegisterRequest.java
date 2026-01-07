@@ -1,30 +1,21 @@
 package edu.snhu.garrison.windwalker.Model;
 
 /**
- * DTO to store user information.
+ * DTO mirroring the /api/auth/register payload (username, name, email, password).
  */
-public class User {
-
-    private String id;
+public class RegisterRequest {
     private String username;
-    private String password;
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
 
-    // Constructor
-    public User() {
-
+    //Empty Constructor
+    public RegisterRequest() {
     }
 
-    //Login User - CONSTRUCTOR
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-	}
-
-    //Register User - OVERLOADED CONSTRUCTOR
-    public User(String username, String firstName, String lastName, String email, String password) {
+    //Overloaded Constructor
+    public RegisterRequest(String username, String firstName, String lastName, String email, String password) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -32,29 +23,13 @@ public class User {
         this.password = password;
     }
 
-	// Getters and Setters
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
+    //Getters and Setters
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirstName() {
@@ -81,4 +56,11 @@ public class User {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

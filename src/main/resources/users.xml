@@ -1,11 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <users>
     <user>
+        <id>1</id>
         <username>admin</username>
         <password>admin123</password>
+        <firstName />
+        <lastName />
+        <email />
     </user>
     <user>
-        <username>testuser</username>
-        <password>test123</password>
+        <id>0dbb1f24-1de7-4afe-96cc-9fbd32768de6</id>
+        <username>asdf</username>
+        <password>asdfasdf</password>
+        <firstName>asdf</firstName>
+        <lastName>asdf</lastName>
+        <email>Talkater2010@hotmail.com</email>
     </user>
 </users>
