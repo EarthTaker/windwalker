@@ -1,9 +1,12 @@
 <!-- fragments/navheader.html -->
-<header th:fragment="navheader">
+<header th:fragment="navheader" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
         <div class="container">
-            <!--IF the user is logged in, change navigation to /dashboard.-->
-            <a class="navbar-brand" th:href="${session.authenticatedUser != null} ? '/dashboard' : '/'">
+            <!--IF the user is logged in, link to dashboard. Otherwise link to home.-->
+            <a class="navbar-brand" th:href="@{/dashboard}" sec:authorize="isAuthenticated()">
+                Windwalker
+            </a>
+            <a class="navbar-brand" th:href="@{/}" sec:authorize="!isAuthenticated()">
                 Windwalker
             </a>
 
@@ -14,22 +17,29 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li th:if="${page != 'login' and session.authenticatedUser == null}" class="nav-item">
+                    <li th:if="${page != 'login'}" sec:authorize="!isAuthenticated()" class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
                     </li>
-                    <li th:if="${page != 'register' and session.authenticatedUser == null}" class="nav-item">
+                    <li th:if="${page != 'register'}" sec:authorize="!isAuthenticated()" class="nav-item">
                         <a class="nav-link" href="/register">Register</a>
                     </li>
-                    <li class="nav-item" th:if="${page != 'dashboard' and page != 'home'}">
-                        <a class="nav-link" th:href="${session.authenticatedUser != null} ? '/dashboard' : '/'">Home</a>
+                    <li class="nav-item" th:if="${page != 'dashboard' and page != 'home'}"
+                        sec:authorize="isAuthenticated()">
+                        <a class="nav-link" th:href="@{/dashboard}">Home</a>
                     </li>
-                    <li th:if="${page != 'logout' and session.authenticatedUser != null}" class="nav-item">
-                        <a class="nav-link" href="#" id="logoutLink">Logout</a>
+                    <li class="nav-item" th:if="${page != 'dashboard' and page != 'home'}"
+                        sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/}">Home</a>
+                    </li>
+                    <li th:if="${page != 'logout'}" sec:authorize="isAuthenticated()" class="nav-item">
+                        <form th:action="@{/logout}" method="POST">
+                            <button type="submit" class="nav-link">Logout</button>
+                        </form>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <script th:if="${session.authenticatedUser != null}" src="/logout.js"></script>
+    <script src="/js/logout.js"></script>
 </header>

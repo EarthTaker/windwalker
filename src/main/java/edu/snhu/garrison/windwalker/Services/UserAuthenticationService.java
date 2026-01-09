@@ -16,6 +16,8 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -38,8 +40,11 @@ public class UserAuthenticationService {
     // Contains the XML document already parsed.
     private Document document;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     /**
-     * Constructor to build:
+     * Constructor to build the XML Document on service initialization:
      *
      * File - The XML file containing users acting as the user database for the
      * application.
@@ -117,8 +122,8 @@ public class UserAuthenticationService {
      * Registers a user in users.xml unless an existing email matches.
      *
      * @param user User object to be registered.
-     * @return true when the user is written to XML; false if email already exists
-     *         or persistence fails.
+     * @return true when the user is written to XML; false if email already
+     * exists or persistence fails.
      */
     public boolean registerUser(User user) {
 
@@ -133,8 +138,6 @@ public class UserAuthenticationService {
             // Compare with provided email.
             if (email.equalsIgnoreCase(user.getEmail())) {
 
-                //Insert Formatted Registration Failure message to be sent back to user.
-                //opRes.setMessage(MessageFormat.format("Registration failed: Email {0} already in use.", user.getEmail()));
                 return false;
             }
 
@@ -156,9 +159,12 @@ public class UserAuthenticationService {
         Element username = document.createElement("username");
         username.setTextContent(user.getUsername());
         newUser.appendChild(username);
+
+        //Encode password before storing in XML.
         Element password = document.createElement("password");
-        password.setTextContent(user.getPassword());
+        password.setTextContent(passwordEncoder.encode(user.getPassword()));
         newUser.appendChild(password);
+
         Element firstName = document.createElement("firstName");
         firstName.setTextContent(user.getFirstName());
         newUser.appendChild(firstName);

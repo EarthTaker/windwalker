@@ -12,7 +12,7 @@
  * @param {*} onSuccess - Determines the outcome if the form submission succeeds.
  * @param {*} onFailure - Determines the outcome if the form submission fails.
  */
-async function submitAuthForm({ endpoint, payload, onSuccess, onFailure }) {
+async function submitAuthForm({ endpoint, payload, headers = {}, onSuccess, onFailure }) {
 
     //Send HTTP POST (request) to API URL
     //Client defines the outbound HTTP request, Server defines what its looking for.
@@ -25,7 +25,12 @@ async function submitAuthForm({ endpoint, payload, onSuccess, onFailure }) {
         //Tells Spring to use a specific deserializer, i.e., one that can deserialize JSON to the POJO.
         //Ensures RequestBody will bind inbound Payload to LoginRequest DTO.
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+
+            //CSRF Header + Token
+            //Syntax Explanation - ... Spread Operator - Expands the headers object into individual key:value pairs.
+            ...headers
+            
         },
 
         //Store the Payload in the body, transform it into JSON.

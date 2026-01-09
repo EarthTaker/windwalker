@@ -19,7 +19,14 @@ async function handleRegisterSubmit(event) {
     //Prevent page from loading after event triggers.
     event.preventDefault();
 
+    //Grab username for use in onFailure message and payload.
     const username = document.getElementById("username").value;
+
+    // Query the DOM to find the meta tag with name="_csrf"
+    const token = document.querySelector('meta[name="_csrf"]').content;
+
+    // Query the DOM to find the meta tag with name="_csrf_header"
+    const header = document.querySelector('meta[name="_csrf_header"]').content;
 
     //Grab values from form.
     const payload = {
@@ -40,6 +47,8 @@ async function handleRegisterSubmit(event) {
         endpoint,
         payload,
 
+        //CSRF Token Header - Syntax Explanation: [] - Resolves the value of the variable 'header' as the property name.
+        headers: { [header]: token },
         //Callbacks
         //Syntax Explanation: Object literal who's value is a function.
         onSuccess: () => {

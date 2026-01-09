@@ -4,8 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import jakarta.servlet.http.HttpSession;
-
 /**
  * Class controlling overall application navigation.
  */
@@ -26,7 +24,7 @@ public class NavigationController {
 
     /**
      * Method to handle basic navigation to Login Page.
-     * 
+     *
      * @param model
      * @return
      */
@@ -38,7 +36,7 @@ public class NavigationController {
 
     /**
      * Method to handle basic navigation to Register Page.
-     * 
+     *
      * @param model
      * @return
      */
@@ -51,23 +49,32 @@ public class NavigationController {
     /**
      * Home Page for a logged-in user.
      *
-     * @param session - HttpSession associated with the current request,
-     * retrieved by the servlet container (Tomcat) and exposed by Spring.
+     * @param model
+     * 
+     * Note: Once Spring Security authenticates the user and the browser responds with a GET request to /dashboard,
+     * this method is invoked to render the authenticated user's home page.
+     * 
      * @return - View name resolved by Thymeleaf to render HTML.
      */
     @GetMapping("/dashboard")
-    public String authenticatedHome(HttpSession session, Model model) {
-
-        // Guard: if no authenticated user exists in the session,
-        // redirect the browser back to the login page.
-        if (session.getAttribute("authenticatedUser") == null) {
-            return "redirect:/login";
-        }
+    public String authenticatedHome(Model model) {
 
         model.addAttribute("page", "dashboard");
 
         // User is authenticated; render the home view.
         return "home";
+    }
+
+    /**
+     * Method to handle basic navigation to Booking Page.
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping("/bookFlight")
+    public String bookFlightPage(Model model) {
+        model.addAttribute("page", "booking");
+        return "bookFlight";
     }
 
 }

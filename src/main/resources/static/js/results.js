@@ -78,7 +78,7 @@ function displayFlightResults(flights, container) {
                         <strong>Arrive:</strong> ${f.arriveTime} <br>
                         <strong>Price:</strong> $${f.price}
                     </p>
-                    <button class="btn btn-primary w-100">Book Now</button>
+                    <button id="bookFlight" class="btn btn-primary w-100">Book Now</button>
                 </div>
             </div>
         `;

@@ -3,17 +3,17 @@
     <user>
         <id>1</id>
         <username>admin</username>
-        <password>admin123</password>
+        <password>$2a$10$JDLcu3kvHRPKUjjlB2nVwu6pOcHojFzBYHN.mjeET7a9dpp6E7PtS</password>
         <firstName />
         <lastName />
         <email />
     </user>
     <user>
-        <id>0dbb1f24-1de7-4afe-96cc-9fbd32768de6</id>
+        <id>937f4c48-2b77-4248-9eaa-e3ffb96c6203</id>
         <username>asdf</username>
-        <password>asdfasdf</password>
-        <firstName>asdf</firstName>
-        <lastName>asdf</lastName>
-        <email>Talkater2010@hotmail.com</email>
+        <password>$2a$10$ZuqDybXlF6Yqo8hPqGJJYeIoSxuHaAinnX6C63dIZ8T/PMInhOeXe</password>
+        <firstName>asdfasdf</firstName>
+        <lastName>asdfasdf</lastName>
+        <email>garrison.geho1992@gmail.com</email>
     </user>
 </users>
