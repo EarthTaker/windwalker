@@ -3,6 +3,7 @@ package edu.snhu.garrison.windwalker.Services;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.UUID;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -53,8 +54,17 @@ public class UserAuthenticationService {
     public UserAuthenticationService() {
 
         try {
-            // Build the XML Document for use throughout the class.
-            file = new File("windwalker/src/main/resources/users.xml");
+
+            //Load users.xml from Classpath - Allows the xml to be packaged in the Java Archive Resource (JAR).
+            ClassLoader classLoader = getClass().getClassLoader();
+            URL resource = classLoader.getResource("users.xml");
+            
+            if (resource != null) {
+                file = new File(resource.getFile());
+                
+            } else {
+                throw new FileNotFoundException("users.xml not found in classpath");
+            }
 
             // Create a DocumentBuilder, use builder to parse XML user authentication file.
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -82,40 +92,6 @@ public class UserAuthenticationService {
             logger.error("Authentication startup failed: I/O error reading users.xml.", e);
             throw new IllegalStateException("I/O error loading users.xml", e);
         }
-
-    }
-
-    /**
-     * Authenticates a user based on the provided username and password. Targets
-     * the parent element to iterate through child elements, comparing the
-     * provided credentials with the stored credentials.
-     *
-     * @param user - Login Credentials passed.
-     * @return - boolean value indicating whether the authentication was
-     * successful.
-     */
-    public boolean authenticateUser(User user) {
-
-        // Grab the list of users from the XML
-        NodeList users = getUsers();
-
-        // Until the total number of users found within the list is reached, iterate
-        // through each user element.
-        for (int i = 0; i < users.getLength(); i++) {
-            Element userElement = (Element) users.item(i);
-            String username = userElement.getElementsByTagName("username").item(0).getTextContent();
-            String password = userElement.getElementsByTagName("password").item(0).getTextContent();
-
-            // Compare with provided credentials.
-            if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
-
-                return true;
-            }
-
-        }
-
-        return false;
-
     }
 
     /**
@@ -133,10 +109,11 @@ public class UserAuthenticationService {
         // Go through the document, ensure the user doesn't already exist.
         for (int i = 0; i < users.getLength(); i++) {
             Element userElement = (Element) users.item(i);
+            String username = userElement.getElementsByTagName("username").item(0).getTextContent();
             String email = userElement.getElementsByTagName("email").item(0).getTextContent();
 
-            // Compare with provided email.
-            if (email.equalsIgnoreCase(user.getEmail())) {
+            // Compare with provided username & email.
+            if (email.equalsIgnoreCase(user.getEmail()) && username.equalsIgnoreCase(user.getUsername())) {
 
                 return false;
             }
@@ -174,6 +151,9 @@ public class UserAuthenticationService {
         Element email = document.createElement("email");
         email.setTextContent(user.getEmail());
         newUser.appendChild(email);
+        Element phone = document.createElement("phone");
+        phone.setTextContent(user.getPhone());
+        newUser.appendChild(phone);
 
         // Append the new <user> element to the root <users> element.
         root.appendChild(newUser);

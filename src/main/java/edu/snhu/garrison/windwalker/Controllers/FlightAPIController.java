@@ -38,10 +38,10 @@ public class FlightAPIController {
      */
     @GetMapping("/search")
     public List<FlightOption> searchFlights(
-            @RequestParam() String from, @RequestParam() String to,
-            @RequestParam() String departureDate, @RequestParam(required = false) String returnDate,
-            @RequestParam() int passengers, @RequestParam() String tripType,
-            @RequestParam() String seatClass) {
+            @RequestParam("from") String from, @RequestParam("to") String to,
+            @RequestParam("departureDate") String departureDate, @RequestParam(value = "returnDate", required = false) String returnDate,
+            @RequestParam("passengers") int passengers, @RequestParam("tripType") String tripType,
+            @RequestParam("seatClass") String seatClass) {
 
         // Generate a DTO to encapsulate parameters
         FlightSearchRequest req = new FlightSearchRequest(to, from, departureDate, returnDate, tripType, passengers,

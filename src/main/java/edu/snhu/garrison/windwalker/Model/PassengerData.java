@@ -1,39 +1,29 @@
 package edu.snhu.garrison.windwalker.Model;
 
 /**
- * DTO mirroring the /api/auth/register payload (username, name, email, password).
+ * DTO for receiving passenger information from booking form.
+ * Field names match the HTML form input names for automatic binding.
  */
-public class RegisterRequest {
-    private String username;
+public class PassengerData {
+    
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
-    private String password;
 
-    //Empty Constructor
-    public RegisterRequest() {
+    // Default constructor
+    public PassengerData() {
     }
 
-    //Overloaded Constructor
-    public RegisterRequest(String username, String firstName, String lastName, String email, String phone, String password) {
-        this.username = username;
+    // Constructor with all fields
+    public PassengerData(String firstName, String lastName, String email, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
-        this.password = password;
     }
 
-    //Getters and Setters
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
+    // Getters and Setters
     public String getFirstName() {
         return firstName;
     }
@@ -64,13 +54,5 @@ public class RegisterRequest {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

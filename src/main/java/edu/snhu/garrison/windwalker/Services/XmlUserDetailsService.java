@@ -1,8 +1,8 @@
 package edu.snhu.garrison.windwalker.Services;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -21,9 +21,11 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * Service Class - Handles user login by loading user credentials from the XML file. 
- * 
- * Implements the UserDetailsService interface to integrate with Spring Security's authentication framework.
+ * Service Class - Handles user login by loading user credentials from the XML
+ * file.
+ *
+ * Implements the UserDetailsService interface to integrate with Spring
+ * Security's authentication framework.
  */
 @Service
 public class XmlUserDetailsService implements UserDetailsService {
@@ -71,13 +73,14 @@ public class XmlUserDetailsService implements UserDetailsService {
      */
     private NodeList getUsersFromDocument() {
         try {
-            // Build the XML Document for use throughout the class.
-            File file = new File("windwalker/src/main/resources/users.xml");
+            //Load users.xml from Classpath - Allows the xml to be packaged in the Java Archive Resource (JAR).
+            ClassLoader classLoader = getClass().getClassLoader();
+            InputStream inputStream = classLoader.getResourceAsStream("users.xml");
 
             // Create a DocumentBuilder, use builder to parse XML user authentication file.
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(file);
+            Document document = builder.parse(inputStream);
 
             // Target users.xml file, filter through DOM tree to find user elements.
             NodeList users = document.getElementsByTagName("user");

@@ -17,11 +17,14 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li th:if="${page != 'login'}" sec:authorize="!isAuthenticated()" class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
+                    <li th:if="${page != 'booking' and session.selectedFlight != null}" sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/bookFlight">Book Flight</a>
                     </li>
                     <li th:if="${page != 'register'}" sec:authorize="!isAuthenticated()" class="nav-item">
                         <a class="nav-link" href="/register">Register</a>
+                    </li>
+                    <li th:if="${page != 'login'}" sec:authorize="!isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
                     </li>
                     <li class="nav-item" th:if="${page != 'dashboard' and page != 'home'}"
                         sec:authorize="isAuthenticated()">
@@ -31,7 +34,7 @@
                         sec:authorize="!isAuthenticated()">
                         <a class="nav-link" th:href="@{/}">Home</a>
                     </li>
-                    <li th:if="${page != 'logout'}" sec:authorize="isAuthenticated()" class="nav-item">
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
                         <form th:action="@{/logout}" method="POST">
                             <button type="submit" class="nav-link">Logout</button>
                         </form>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -17,11 +18,12 @@ import edu.snhu.garrison.windwalker.Model.FlightOption;
 @Component
 public class GenerateFlightData implements CommandLineRunner {
 
-        private final FlightRepository flightRepository;
+        @Autowired
+        private FlightRepository flightRepository;
 
         private static final Random random = new Random();
 
-        // Establishes the nubmer of flights required to generate on startup.
+        // Establishes the number of flights required to generate on startup.
         @Value("${flight.generator.count:50}")
         private int flightCount;
 
@@ -52,11 +54,6 @@ public class GenerateFlightData implements CommandLineRunner {
                         new Airport("MIA", "Miami International", "Miami", "USA"),
                         new Airport("BOS", "Logan International", "Boston", "USA"),
                         new Airport("PHX", "Phoenix Sky Harbor", "Phoenix", "USA"));
-
-        // Inject Repository Dependency through class constructor.
-        public GenerateFlightData(FlightRepository flightRepository) {
-                this.flightRepository = flightRepository;
-        }
 
         /**
          * Method: Automatically runs at startup.
@@ -111,7 +108,7 @@ public class GenerateFlightData implements CommandLineRunner {
                                         originPort.getName(), originPort.getCity(), originPort.getCountry(),
                                         destinationPort.getName(), destinationPort.getCity(),
                                         destinationPort.getCountry(),
-                                        1 + random.nextInt(3),
+                                        1 + random.nextInt(4),
                                         randomCabinClass());
 
                         flights.add(flight);
@@ -208,23 +205,23 @@ public class GenerateFlightData implements CommandLineRunner {
          * @return
          */
         private static double randomPrice(String cabinClass) {
-                double base;
-                double variance;
-
-                // Create a base and price variance based on each cabin.
-                switch (cabinClass) {
-                        case "First Class":
-                                base = 450;
-                                variance = 300;
-                                break;
-                        case "Business Class":
-                                base = 300;
-                                variance = 200;
-                                break;
-                        default:
-                                base = 150;
-                                variance = 100;
+                // Handle null cabin class
+                if (cabinClass == null) {
+                        cabinClass = "Economy";
                 }
+                
+                // Create a base and price variance based on each cabin.
+                double base = switch (cabinClass) {
+                        case "First Class" -> 450;
+                        case "Business Class" -> 300;
+                        default -> 150;
+                };
+                
+                double variance = switch (cabinClass) {
+                        case "First Class" -> 300;
+                        case "Business Class" -> 200;
+                        default -> 100;
+                };
 
                 // Calculate the price of the flight - Use the rand * variance to create an
                 // estimate price addition to the base value.

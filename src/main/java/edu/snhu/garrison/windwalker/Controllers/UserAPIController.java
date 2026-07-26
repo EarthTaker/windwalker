@@ -46,7 +46,7 @@ public class UserAPIController {
 
         //Generate a new User from register request DTO.
         User user = new User(req.getUsername(), req.getFirstName(), req.getLastName(), req.getEmail(),
-                req.getPassword());
+                req.getPhone(), req.getPassword());
 
         //Register User
         if (authService.registerUser(user)) {

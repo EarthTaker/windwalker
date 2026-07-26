@@ -4,6 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import edu.snhu.garrison.windwalker.Model.FlightOption;
+import jakarta.servlet.http.HttpSession;
+
 /**
  * Class controlling overall application navigation.
  */
@@ -50,10 +53,11 @@ public class NavigationController {
      * Home Page for a logged-in user.
      *
      * @param model
-     * 
-     * Note: Once Spring Security authenticates the user and the browser responds with a GET request to /dashboard,
-     * this method is invoked to render the authenticated user's home page.
-     * 
+     *
+     * Note: Once Spring Security authenticates the user and the browser
+     * responds with a GET request to /dashboard, this method is invoked to
+     * render the authenticated user's home page.
+     *
      * @return - View name resolved by Thymeleaf to render HTML.
      */
     @GetMapping("/dashboard")
@@ -72,8 +76,18 @@ public class NavigationController {
      * @return
      */
     @GetMapping("/bookFlight")
-    public String bookFlightPage(Model model) {
+    public String bookFlightPage(HttpSession session, Model model) {
         model.addAttribute("page", "booking");
+
+        //Check if a flight has been selected; if not, redirect to home.
+        if (session.getAttribute("selectedFlight") == null) {
+            return "redirect:/";
+        }
+        
+        //Retrieve selected flight from session and add to model for rendering.
+        FlightOption flight = (FlightOption) session.getAttribute("selectedFlight");
+        model.addAttribute("flight", flight);
+        
         return "bookFlight";
     }
 

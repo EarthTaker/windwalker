@@ -2,9 +2,16 @@ package edu.snhu.garrison.windwalker.Model;
 
 import java.time.LocalTime;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-//DTO acting as a container for any returning flight options pulled from the repository.
+/*
+* DTO acting as a container for any returning flight options pulled from the repository.
+* 
+ */
 @Entity
 @Table(name = "flights")
 public class FlightOption {
@@ -33,6 +40,11 @@ public class FlightOption {
     public FlightOption() {
     }
 
+    // DB ID Only Constructor
+    public FlightOption(int id) {
+        this.id = id;
+    }
+
     // Populated Flight Constructor
     public FlightOption(String airlineName, String airportCode, String flightNumber, LocalTime arriveTime,
             LocalTime departureTime, int flightDuration, double price, String airportArriveLocation, String arriveCity,
@@ -55,11 +67,11 @@ public class FlightOption {
     }
 
     // Getters and Setters
-    public int getID() {
+    public int getId() {
         return id;
     }
 
-    public void setID(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 

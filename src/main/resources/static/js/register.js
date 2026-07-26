@@ -34,7 +34,8 @@ async function handleRegisterSubmit(event) {
         firstName: document.getElementById("firstName").value,
         lastName: document.getElementById("lastName").value,
         email: document.getElementById("email").value,
-        password: document.getElementById("password").value
+        phone: document.getElementById("phone").value,
+        password: document.getElementById("password").value        
     };
 
     //Assign endpoint address.

@@ -11,6 +11,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    private String phone;
 
     // Constructor
     public User() {
@@ -24,11 +25,12 @@ public class User {
 	}
 
     //Register User - OVERLOADED CONSTRUCTOR
-    public User(String username, String firstName, String lastName, String email, String password) {
+    public User(String username, String firstName, String lastName, String email, String phone, String password) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.phone = phone;
         this.password = password;
     }
 
@@ -79,6 +81,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
 }
