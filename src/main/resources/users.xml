@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<users>
+    <user>
+        <id>1</id>
+        <username>admin</username>
+        <password>$2a$10$JDLcu3kvHRPKUjjlB2nVwu6pOcHojFzBYHN.mjeET7a9dpp6E7PtS</password>
+        <firstName>admin</firstName>
+        <lastName>admin</lastName>
+        <email>admin@test.com</email>
+        <phone />
+    </user>
+    <user>
+        <id>f9159aa0-8be7-4847-adb3-33e7e814a60b</id>
+        <username>asdf</username>
+        <password>$2a$10$jG8dPRT5NfTBXP/vDI6ip.ssuviT/9zqtach1LW0mtldy6dqDmufa</password>
+        <firstName>asdfasdf</firstName>
+        <lastName>asdfasdf</lastName>
+        <email>garrison.geho1992@gmail.com</email>
+        <phone>6604151271</phone>
+    </user>
+</users>

@@ -15,6 +15,11 @@ Windwalker is a web-based flight reservation prototype developed for my IT-634 C
 ### User Workflow
 Users can create an account, log in, and search a preloaded collection of flights. For example, users can search for a flight from New York to Los Angeles. After selecting a flight, the user must include at least one passenger before confirming the booking.
 
+Test Flight - 
+
+From: New York 
+To: Los Angeles
+
 ## Technologies Used
 
 ### Languages
