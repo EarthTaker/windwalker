@@ -70,8 +70,8 @@ searchFlights  /api/flights/search  Search for available flights.
 bookFlight     /api/booking/flight  Splash page for booking a user-selected flight.
 confirmBooking /api/booking/confirm Form submission for booking a user-selected flight.
 
-TODO:
 ## Database
-## What I Implemented
-## What I Learned
-## Current Status and Limitations
+   - An in-memory H2 Database was implemented within Windwalker to store the list of flights and user bookings, while a local XML file stores registered users and hashed passwords.
+   - Spring Data JPA provides repository interfaces and standard database-access methods, while Hibernate uses the JPA annotations for mapping between objects and DB rows.
+   - When the application stops, the H2 flight and booking records are discarded, while registered users remain stored in the local XML file. 
+   - This lightweight configuration allowed me to practice database persistence without requiring the setup and maintenance of an external database server.
