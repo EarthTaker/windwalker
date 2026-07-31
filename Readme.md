@@ -51,7 +51,7 @@ To: Los Angeles
 ## Application Architecture
    - View Layer - Displays server-rendered pages using Thymeleaf templates and Bootstrap for styling. 
    - Controller Layer - Receives browser requests and REST API requests.
-   - Service Layer - Contains business logic and flight-search business logic.
+   - Service Layer - Contains user authentication, booking, and flight-search business logic.
    - Model Layer - Contains data models, DTOs, and entities representing users, authentication requests, flights, airports, and airlines.
    - Repository Layer - Retrieves and stores data using Spring Data JPA and the H2 In-Memory Database. Sample flight records are generated at runtime and stored in H2.
 
@@ -65,10 +65,11 @@ To: Los Angeles
 
 ## API Endpoints
 
-Method         Endpoint             Purpose
-searchFlights  /api/flights/search  Search for available flights.
-bookFlight     /api/booking/flight  Splash page for booking a user-selected flight.
-confirmBooking /api/booking/confirm Form submission for booking a user-selected flight.
+| HTTP Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/flights/search` | Returns flights matching the submitted search criteria. |
+| POST | `/api/booking/flight` | Stores the selected flight in the user's session for booking. |
+| POST | `/api/booking/confirm` | Saves the confirmed booking and passenger information. |
 
 ## Database
    - An in-memory H2 Database was implemented within Windwalker to store the list of flights and user bookings, while a local XML file stores registered users and hashed passwords.
